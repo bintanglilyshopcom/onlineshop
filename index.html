@@ -620,6 +620,8 @@ const DEFAULT_SLIDES = [
 { id: 's2', title: 'Tas Kulit High-End Noir', subtitle: 'Fashion Premium • Rp 3.850.000', img: 'https://raw.githubusercontent.com/bintanglilyshopcom/onlineshop/main/p2.jpg', prodId: 'p2' },
 { id: 's3', title: 'Headphone Studio Wireless B&W', subtitle: 'Elektronik Modern • Rp 2.900.000', img: 'https://raw.githubusercontent.com/bintanglilyshopcom/onlineshop/main/p3.jpg', prodId: 'p3' }
 ];
+localStorage.removeItem('bintanglily_mono_products');
+localStorage.removeItem('bintanglily_mono_slides');
 let products = JSON.parse(localStorage.getItem('bintanglily_mono_products')) || DEFAULT_PRODUCTS;
 let slides = JSON.parse(localStorage.getItem('bintanglily_mono_slides')) || DEFAULT_SLIDES;
 let cart = JSON.parse(localStorage.getItem('bintanglily_mono_cart')) || [];
