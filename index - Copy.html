@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BintangLilyShop - Premium Luxury Monochrome Store</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mono: {
+                            50: '#f9f9f9',
+                            100: '#f0f0f0',
+                            200: '#e0e0e0',
+                            300: '#cccccc',
+                            400: '#999999',
+                            500: '#666666',
+                            600: '#444444',
+                            700: '#262626',
+                            800: '#171717',
+                            900: '#0a0a0a',
+                            950: '#050505',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0a0a0a; color: #f9f9f9; }
+        .font-serif-title { font-family: 'Cormorant Garamond', serif; }
+        .zoom-img-container { overflow: hidden; position: relative; cursor: grab; }
+        .zoom-img-container:active { cursor: grabbing; }
+        .zoom-img { transition: transform 0.15s ease-out; transform-origin: center center; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #171717; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #444444; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #666666; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-white selection:text-black">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-mono-950 border-b border-mono-800 text-mono-400 text-[11px] py-2 px-4 text-center tracking-wider uppercase font-medium">
+        ✨ Koleksi Eksklusif Monokrom Minimalis — Garansi Keaslian 100% Produk Original ✨
+    </div>
+
+    <!-- HEADER & NAVBAR -->
+    <header class="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b border-mono-800 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="scrollToTop()">
+                <div class="w-10 h-10 bg-white text-black flex items-center justify-center font-bold font-serif text-2xl tracking-tighter rounded-full border border-white shadow-lg">B</div>
+                <div>
+                    <span class="font-serif-title text-2xl tracking-widest font-bold uppercase block leading-none text-white">BINTANGLILY</span>
+                    <span class="text-[9px] tracking-[0.3em] text-mono-400 uppercase font-semibold">Luxury Store</span>
+                </div>
+            </div>
+
+            <!-- Cart & Admin Buttons -->
+            <div class="flex items-center space-x-3 sm:space-x-4">
+                <button onclick="toggleCartDrawer()" class="relative flex items-center space-x-2 text-xs font-semibold tracking-wider text-mono-300 hover:text-white border border-mono-700 hover:border-white px-4 py-2 rounded-full transition bg-mono-900">
+                    <i class="fa-solid fa-cart-shopping text-sm"></i>
+                    <span class="hidden sm:inline">KERANJANG</span>
+                    <span id="cartBadgeCount" class="bg-white text-black text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center -mr-1">0</span>
+                </button>
+                <button onclick="openAdminModal()" class="flex items-center space-x-2 text-xs font-semibold tracking-wider text-mono-300 hover:text-white border border-mono-700 hover:border-white px-4 py-2 rounded-full transition bg-mono-900">
+                    <i class="fa-solid fa-lock text-xs"></i>
+                    <span class="hidden sm:inline">ADMIN</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MODERN HERO PRODUCT SLIDESHOW HEADER -->
+    <section class="relative w-full overflow-hidden bg-mono-950 border-b border-mono-800">
+        <div id="slides-container" class="relative w-full h-[480px] sm:h-[580px]">
+            <!-- Dynamic product slides rendered via JS -->
+        </div>
+
+        <!-- Carousel Navigation Controls -->
+        <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-black/60 border border-white/30 text-white flex items-center justify-center hover:bg-white hover:text-black transition shadow-2xl">
+            <i class="fa-solid fa-chevron-left text-lg"></i>
+        </button>
+        <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-black/60 border border-white/30 text-white flex items-center justify-center hover:bg-white hover:text-black transition shadow-2xl">
+            <i class="fa-solid fa-chevron-right text-lg"></i>
+        </button>
+
+        <!-- Indicators -->
+        <div id="slide-indicators" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
+            <!-- Dynamic indicators rendered via JS -->
+        </div>
+    </section>
+
+    <!-- FEATURE HIGHLIGHTS -->
+    <section class="border-b border-mono-800 bg-mono-900 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+            <div class="flex items-center justify-center space-x-3 p-4 border border-mono-800 rounded-xl bg-mono-950/50">
+                <i class="fa-solid fa-certificate text-white text-xl"></i>
+                <div class="text-left">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-white">100% Original</h4>
+                    <p class="text-[11px] text-mono-400">Garansi produk asli berkualitas tinggi</p>
+                </div>
+            </div>
+            <div class="flex items-center justify-center space-x-3 p-4 border border-mono-800 rounded-xl bg-mono-950/50">
+                <i class="fa-solid fa-box-open text-white text-xl"></i>
+                <div class="text-left">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-white">Kemasan Premium</h4>
+                    <p class="text-[11px] text-mono-400">Pengemasan aman & proteksi berlapis</p>
+                </div>
+            </div>
+            <div class="flex items-center justify-center space-x-3 p-4 border border-mono-800 rounded-xl bg-mono-950/50">
+                <i class="fa-solid fa-rotate-left text-white text-xl"></i>
+                <div class="text-left">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-white">Garansi Retur</h4>
+                    <p class="text-[11px] text-mono-400">Jaminan tukar jika terjadi kerusakan</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT CATALOG & SEARCH SECTION WITH PAGINATION -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 flex-grow w-full" id="catalogSection">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-6 border-b border-mono-800 gap-6">
+            <div>
+                <h2 class="text-3xl sm:text-4xl font-serif-title font-bold text-white tracking-wide uppercase">Katalog Produk</h2>
+                <p class="text-mono-400 text-sm mt-1">Koleksi eksklusif pilihan terbaik dari BintangLilyShop</p>
+            </div>
+
+            <!-- Search, Filter & Sort Controls -->
+            <div class="flex flex-col sm:flex-row items-center gap-3">
+                <div class="relative w-full sm:w-60">
+                    <input type="text" id="searchInput" oninput="handleFilterChange()" placeholder="Cari produk..." class="w-full bg-mono-900 text-white text-sm border border-mono-700 rounded-lg px-4 py-2.5 pl-10 focus:outline-none focus:border-white transition">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-mono-400 text-xs"></i>
+                </div>
+                <select id="categoryFilter" onchange="handleFilterChange()" class="w-full sm:w-auto bg-mono-900 text-white text-sm border border-mono-700 rounded-lg px-4 py-2.5 focus:outline-none focus:border-white transition">
+                    <option value="ALL">Semua Kategori</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="Elektronik">Elektronik</option>
+                    <option value="Aksesoris">Aksesoris</option>
+                    <option value="Rumah">Rumah & Gaya Hidup</option>
+                </select>
+                <select id="sortFilter" onchange="handleFilterChange()" class="w-full sm:w-auto bg-mono-900 text-white text-sm border border-mono-700 rounded-lg px-4 py-2.5 focus:outline-none focus:border-white transition">
+                    <option value="default">Urutkan: Terbaru</option>
+                    <option value="price-low">Harga: Terendah</option>
+                    <option value="price-high">Harga: Tertinggi</option>
+                    <option value="name-asc">Nama: A - Z</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Dynamic Products Grid -->
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Dynamic Product Cards rendered via JS -->
+        </div>
+
+        <!-- DYNAMIC PAGINATION CONTROLS -->
+        <div id="paginationContainer" class="mt-12 flex flex-col sm:flex-row items-center justify-between border-t border-mono-800 pt-6 gap-4">
+            <div id="paginationInfo" class="text-xs text-mono-400 uppercase tracking-wider">
+                Menampilkan 0 dari 0 produk
+            </div>
+            <div id="paginationButtons" class="flex items-center space-x-2">
+                <!-- Page buttons rendered dynamically -->
+            </div>
+        </div>
+    </main>
+
+    <!-- CART DRAWER (SIDEBAR KERANJANG BELANJA) -->
+    <div id="cartDrawerOverlay" onclick="toggleCartDrawer()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden transition-opacity"></div>
+    <div id="cartDrawer" class="fixed top-0 right-0 h-full w-full sm:w-96 bg-mono-900 border-l border-mono-800 z-50 transform translate-x-full transition-transform duration-300 flex flex-col justify-between shadow-2xl">
+        <div class="p-6 border-b border-mono-800 flex justify-between items-center bg-mono-950">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-bag-shopping text-white text-lg"></i>
+                <h3 class="font-serif-title text-xl font-bold uppercase tracking-wider text-white">Keranjang Belanja</h3>
+            </div>
+            <button onclick="toggleCartDrawer()" class="text-mono-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cartItemsList" class="p-6 overflow-y-auto flex-grow space-y-4 custom-scrollbar">
+            <!-- Rendered Cart Items -->
+        </div>
+
+        <!-- Cart Footer / Checkout -->
+        <div class="p-6 border-t border-mono-800 bg-mono-950 space-y-4">
+            <div class="flex justify-between items-center">
+                <span class="text-xs uppercase tracking-wider text-mono-400">Total Pembayaran:</span>
+                <span id="cartTotalPrice" class="text-lg font-bold text-white">Rp 0</span>
+            </div>
+            
+            <form onsubmit="submitCartCheckout(event)" class="space-y-3">
+                <input type="text" id="cartCustName" required placeholder="Nama Lengkap *" class="w-full bg-mono-900 border border-mono-700 text-white text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-white">
+                <input type="tel" id="cartCustPhone" required placeholder="Nomor WhatsApp *" class="w-full bg-mono-900 border border-mono-700 text-white text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-white">
+                <textarea id="cartCustAddress" rows="2" required placeholder="Alamat Pengiriman Lengkap *" class="w-full bg-mono-900 border border-mono-700 text-white text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-white"></textarea>
+
+                <button type="submit" class="w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-mono-200 transition flex items-center justify-center space-x-2 shadow-lg">
+                    <i class="fa-brands fa-whatsapp text-lg text-emerald-600"></i>
+                    <span>CHECKOUT VIA WHATSAPP</span>
+                </button>
+            </form>
+            
+            <button onclick="clearCart()" class="w-full text-[11px] text-red-400 hover:text-red-300 uppercase tracking-wider font-semibold text-center pt-1 block">Kosongkan Keranjang</button>
+        </div>
+    </div>
+
+    <!-- MODERN FOOTER -->
+    <footer class="bg-mono-950 border-t border-mono-800 pt-16 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-white text-black flex items-center justify-center font-bold font-serif text-lg rounded-full">B</div>
+                    <span class="font-serif-title text-xl tracking-widest uppercase font-bold text-white">BintangLily</span>
+                </div>
+                <p class="text-xs text-mono-400 leading-relaxed">Destinasi belanja online terpercaya dengan koleksi produk mewah berkualitas tinggi berstandar monokrom minimalis.</p>
+            </div>
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-widest text-white mb-4">Navigasi Utama</h4>
+                <ul class="space-y-2 text-xs text-mono-400">
+                    <li><a href="#" onclick="scrollToTop(); return false;" class="hover:text-white transition">Beranda Utama</a></li>
+                    <li><a href="#productsGrid" class="hover:text-white transition">Katalog Produk</a></li>
+                    <li><a href="#" onclick="openAdminModal(); return false;" class="hover:text-white transition">Panel Admin</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-widest text-white mb-4">Layanan Pelanggan</h4>
+                <ul class="space-y-2 text-xs text-mono-400">
+                    <li><span class="hover:text-white transition cursor-pointer">Pemesanan WhatsApp Langsung</span></li>
+                    <li><span class="hover:text-white transition cursor-pointer">Konfirmasi Pembayaran</span></li>
+                    <li><span class="hover:text-white transition cursor-pointer">Bantuan & FAQ</span></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-widest text-white mb-4">Newsletter Eksklusif</h4>
+                <p class="text-xs text-mono-400 mb-3">Dapatkan update produk terbaru langsung ke email Anda.</p>
+                <div class="flex">
+                    <input type="email" placeholder="Alamat email..." class="bg-mono-900 border border-mono-700 text-xs px-3 py-2 rounded-l-lg text-white focus:outline-none w-full">
+                    <button class="bg-white text-black text-xs font-bold px-4 rounded-r-lg hover:bg-mono-200 transition">Kirim</button>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 border-t border-mono-800 pt-6 text-center">
+            <p class="text-mono-400 text-xs tracking-wider uppercase">&copy; 2026 BintangLilyShop. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL PEMESANAN & DETAIL PRODUK (UNIFIED WA FORM & ZOOM) -->
+    <div id="productOrderModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="bg-mono-900 border border-mono-700 w-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]">
+            
+            <!-- Left Side: Interactive Zoom Image Player -->
+            <div class="w-full md:w-1/2 bg-black flex flex-col items-center justify-between p-4 relative border-b md:border-b-0 md:border-r border-mono-800">
+                <div class="w-full flex justify-between items-center mb-2 z-10">
+                    <span class="text-[10px] tracking-widest text-mono-400 uppercase font-semibold">Zoom Preview</span>
+                    <button type="button" onclick="resetZoom()" class="text-xs text-mono-300 hover:text-white border border-mono-700 px-2 py-1 rounded bg-mono-800">Reset Zoom</button>
+                </div>
+
+                <div id="zoomContainer" class="zoom-img-container w-full h-64 sm:h-80 md:h-full flex items-center justify-center rounded-lg overflow-hidden bg-mono-950">
+                    <img id="modalProductImg" src="" alt="Product" class="zoom-img max-h-full max-w-full object-contain pointer-events-none">
+                </div>
+
+                <!-- Zoom Controls -->
+                <div class="w-full flex items-center justify-center space-x-3 mt-4 bg-mono-900/90 py-2 px-4 rounded-full border border-mono-800 z-10">
+                    <button type="button" onclick="adjustZoom(-0.25)" class="w-8 h-8 rounded-full bg-mono-800 hover:bg-mono-700 text-white flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-minus text-xs"></i></button>
+                    <input type="range" id="zoomRange" min="1" max="4" step="0.1" value="1" oninput="setZoom(this.value)" class="w-32 accent-white">
+                    <button type="button" onclick="adjustZoom(0.25)" class="w-8 h-8 rounded-full bg-mono-800 hover:bg-mono-700 text-white flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-plus text-xs"></i></button>
+                </div>
+            </div>
+
+            <!-- Right Side: Order Form & Product Specs -->
+            <div class="w-full md:w-1/2 p-6 flex flex-col justify-between overflow-y-auto custom-scrollbar">
+                <div>
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <span id="modalCategory" class="text-[10px] font-bold tracking-widest uppercase text-mono-400 bg-mono-800 px-2 py-0.5 rounded">Category</span>
+                            <h3 id="modalTitle" class="text-2xl font-serif-title font-bold text-white mt-1">Product Title</h3>
+                        </div>
+                        <button onclick="closeOrderModal()" class="text-mono-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+
+                    <p id="modalPrice" class="text-xl font-bold text-white mb-3">Rp 0</p>
+                    <p id="modalDesc" class="text-xs text-mono-300 leading-relaxed mb-6">Product Description</p>
+
+                    <!-- ADD TO CART & DIRECT ORDER -->
+                    <div class="space-y-4 border-t border-mono-800 pt-4">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] uppercase tracking-wider text-mono-400 mb-1">Pilihan Varian</label>
+                                <select id="custVariant" class="w-full bg-mono-800 border border-mono-700 text-white text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-white">
+                                    <option value="Standard">Standard / Default</option>
+                                    <option value="Hitam">Warna Hitam</option>
+                                    <option value="Putih">Warna Putih</option>
+                                    <option value="Ukuran L">Ukuran L / Medium</option>
+                                    <option value="Ukuran XL">Ukuran XL / Large</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] uppercase tracking-wider text-mono-400 mb-1">Jumlah</label>
+                                <input type="number" id="custQty" min="1" value="1" class="w-full bg-mono-800 border border-mono-700 text-white text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-white">
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="addActiveProductToCart()" class="w-full bg-mono-800 hover:bg-mono-700 text-white font-bold py-3 rounded-xl border border-mono-600 transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            <span>TAMBAH KE KERANJANG BELANJA</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="adminLoginModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="bg-mono-900 border border-mono-700 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
+            <button onclick="closeAdminLoginModal()" class="absolute right-4 top-4 text-mono-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3 class="text-2xl font-serif-title font-bold text-white">Login Admin</h3>
+                <p class="text-xs text-mono-400 mt-1">Masukkan kata sandi admin untuk mengelola toko</p>
+            </div>
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-mono-400 mb-1">Password Admin</label>
+                    <input type="password" id="adminPassword" required placeholder="••••••••" class="w-full bg-mono-800 border border-mono-700 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-white">
+                </div>
+                <button type="submit" class="w-full bg-white text-black font-bold py-3 rounded-lg hover:bg-mono-200 transition">MASUK DASHBOARD</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CHANGE PASSWORD MODAL -->
+    <div id="changePassModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="bg-mono-900 border border-mono-700 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
+            <button onclick="closeChangePassModal()" class="absolute right-4 top-4 text-mono-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-mono-800 border border-mono-700 text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-3"><i class="fa-solid fa-key"></i></div>
+                <h3 class="text-2xl font-serif-title font-bold text-white">Ubah Password Admin</h3>
+                <p class="text-xs text-mono-400 mt-1">Perbarui password akses panel admin Anda</p>
+            </div>
+            <form onsubmit="handleChangePassSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-mono-400 mb-1">Password Lama</label>
+                    <input type="password" id="oldPassInput" required placeholder="••••••••" class="w-full bg-mono-800 border border-mono-700 text-white text-sm rounded-lg px-4 py-2.5 focus:outline-none focus:border-white">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-mono-400 mb-1">Password Baru</label>
+                    <input type="password" id="newPassInput" required placeholder="••••••••" class="w-full bg-mono-800 border border-mono-700 text-white text-sm rounded-lg px-4 py-2.5 focus:outline-none focus:border-white">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-mono-400 mb-1">Konfirmasi Password Baru</label>
+                    <input type="password" id="confirmPassInput" required placeholder="••••••••" class="w-full bg-mono-800 border border-mono-700 text-white text-sm rounded-lg px-4 py-2.5 focus:outline-none focus:border-white">
+                </div>
+                <button type="submit" class="w-full bg-white text-black font-bold py-3 rounded-lg hover:bg-mono-200 transition mt-2">SIMPAN PASSWORD BARU</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD MODAL -->
+    <div id="adminDashboardModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-lg flex items-center justify-center p-4 hidden">
+        <div class="bg-mono-900 border border-mono-700 w-full max-w-5xl rounded-2xl shadow-2xl flex flex-col h-[90vh] overflow-hidden">
+            
+            <!-- Dashboard Header -->
+            <div class="bg-mono-950 px-6 py-4 border-b border-mono-800 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <h3 class="font-serif-title text-xl font-bold text-white uppercase tracking-wider">Panel Admin BintangLilyShop</h3>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button onclick="openChangePassModal()" class="text-xs border border-mono-700 hover:border-white text-mono-300 hover:text-white px-3 py-1.5 rounded-lg transition flex items-center space-x-1.5 bg-mono-900">
+                        <i class="fa-solid fa-key text-xs"></i>
+                        <span>Ubah Password</span>
+                    </button>
+                    <button onclick="logoutAdmin()" class="text-xs bg-red-900/40 text-red-300 hover:bg-red-800 hover:text-white px-3 py-1.5 rounded-lg border border-red-800/60 transition">Logout</button>
+                    <button onclick="closeAdminDashboard()" class="text-mono-400 hover:text-white text-lg ml-2"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="flex border-b border-mono-800 bg-mono-900 px-6 overflow-x-auto">
+                <button id="tabProductsBtn" onclick="switchAdminTab('products')" class="py-3 px-5 text-xs font-bold uppercase tracking-wider border-b-2 border-white text-white whitespace-nowrap">Kelola Produk</button>
+                <button id="tabHeaderBtn" onclick="switchAdminTab('header')" class="py-3 px-5 text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-mono-400 hover:text-white whitespace-nowrap">Kelola Banner Header</button>
+                <button id="tabSettingsBtn" onclick="switchAdminTab('settings')" class="py-3 px-5 text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-mono-400 hover:text-white whitespace-nowrap">Pengaturan WA</button>
+            </div>
+
+            <!-- Dashboard Body -->
+            <div class="p-6 overflow-y-auto custom-scrollbar flex-grow">
+                
+                <!-- TAB 1: KELOLA PRODUK -->
+                <div id="tabProductsContent" class="space-y-8">
+                    <div class="bg-mono-950 border border-mono-800 p-5 rounded-xl">
+                        <h4 id="formProductTitle" class="text-sm font-bold text-white uppercase tracking-wider mb-4">Tambah Produk Baru</h4>
+                        <form id="productCrudForm" onsubmit="saveProduct(event)" class="space-y-4">
+                            <input type="hidden" id="prodId">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-[11px] uppercase tracking-wider text-mono-400 mb-1">Nama Produk *</label>
+                                    <input type="text" id="prodTitle" required class="w-full bg-mono-900 border border-mono-700 text-white text-xs rounded-lg px-3 py-2">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] uppercase tracking-wider text-mono-400 mb-1">Harga (Rp) *</label>
+                                    <input type="number" id="prodPrice" required class="w-full bg-mono-900 border border-mono-700 text-white text-xs rounded-lg px-3 py-2">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] uppercase tracking-wider text-mono-400 mb-1">Kategori *</label>
+                                    <select id="prodCategory" required class="w-full bg-mono-900 border border-mono-700 text-white text-xs rounded-lg px-3 py-2">
+                                        <option value="Fashion">Fashion</option>
+                                        <option value="Elektronik">Elektronik</option>
+                                        <option value="Aksesoris">Aksesoris</option>
+                                        <option value="Rumah">Rumah & Gaya Hidup</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- BROWSE FILE UPLOAD PICTURE -->
+                            <div>
+                                <label class="block text-[11px] uppercase tracking-wider text-mono-400 mb-1">Foto Produk (Browse File Local) *</label>
+                                <div class="flex items-center space-x-4">
+                                    <input type="file" id="prodFile" accept="image/*" onchange="previewFile('prodFile', 'prodImgPreview', 'prodImgUrl')" class="text-xs text-mono-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-white file:text-black hover:file:bg-mono-200">
+                                    <input type="hidden" id="prodImgUrl">
+                                    <img id="prodImgPreview" src="" alt="Preview" class="w-12 h-12 object-cover rounded border border-mono-700 hidden">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-[11px] uppercase tracking-wider text-mono-400 mb-1">Deskripsi Produk *</label>
+                                <textarea id="prodDesc" rows="2" required class="w-full bg-mono-900 border border-mono-700 text-white text-xs rounded-lg px-3 py-2"></textarea>
+                            </div>
+
+                            <div class="flex space-x-3 pt-2">
+                                <button type="submit" class="bg-white text-black font-bold px-5 py-2 text-xs rounded-lg hover:bg-mono-200">Simpan Produk</button>
+                                <button type="button" onclick="resetProdForm()" class="border border-mono-700 text-mono-300 font-bold px-4 py-2 text-xs rounded-lg hover:bg-mono-800">Reset Form</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Product Table -->
+                    <div>
+                        <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-3">Daftar Produk</h4>
+                        <div class="overflow-x-auto border border-mono-800 rounded-xl">
+                            <table class="w-full text-left text-xs text-mono-300">
+                                <thead class="bg-mono-950 text-mono-400 uppercase text-[10px] tracking-wider border-b border-mono-800">
+                                    <tr>
+                                        <th class="p-3">Gambar</th>
+                                        <th class="p-3">Nama Produk</th>
+                                        <th class="p-3">Kategori</th>
+                                        <th class="p-3">Harga</th>
+                                        <th class="p-3 text-right">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminProductsTable" class="divide-y divide-mono-800 bg-mono-900">
+                                    <!-- Dynamic Rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: KELOLA BANNER HEADER -->
+                <div id="tabHeaderContent" class="space-y-8 hidden">
+                    <div class="bg-mono-950 border border-mono-800 p-5 rounded-xl">
+                        <h4 id="formSlideTitle" class="text-sm font-bold text-white uppercase tracking-wider mb-4">Tambah Banner Header</h4>
+                        <form id="slideCrudForm" onsubmit="saveSlide(event)" class="space-y-4">
+                            <input type="hidden" id="slideId">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[11px] uppercase tracking-wider text-mono-400 mb-1">Judul Slide (Heading) *</label>
+                                    <input type="text" id="slideTitle" required class="w-full bg-mono-900 border border-mono-700 text-white text-xs rounded-lg px-3 py-2">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] uppercase tracking-wider text-mono-400 mb-1">Sub-Judul / Tagline *</label>
+                                    <input type="text" id="slideSubtitle" required class="w-full bg-mono-900 border border-mono-700 text-white text-xs rounded-lg px-3 py-2">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-[11px] uppercase tracking-wider text-mono-400 mb-1">Foto Banner (Browse File Explorer) *</label>
+                                <div class="flex items-center space-x-4">
+                                    <input type="file" id="slideFile" accept="image/*" onchange="previewFile('slideFile', 'slideImgPreview', 'slideImgUrl')" class="text-xs text-mono-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-white file:text-black hover:file:bg-mono-200">
+                                    <input type="hidden" id="slideImgUrl">
+                                    <img id="slideImgPreview" src="" alt="Preview" class="w-20 h-10 object-cover rounded border border-mono-700 hidden">
+                                </div>
+                            </div>
+
+                            <div class="flex space-x-3 pt-2">
+                                <button type="submit" class="bg-white text-black font-bold px-5 py-2 text-xs rounded-lg hover:bg-mono-200">Simpan Banner</button>
+                                <button type="button" onclick="resetSlideForm()" class="border border-mono-700 text-mono-300 font-bold px-4 py-2 text-xs rounded-lg hover:bg-mono-800">Reset Form</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Slide List Table -->
+                    <div>
+                        <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-3">Daftar Banner Slideshow</h4>
+                        <div class="overflow-x-auto border border-mono-800 rounded-xl">
+                            <table class="w-full text-left text-xs text-mono-300">
+                                <thead class="bg-mono-950 text-mono-400 uppercase text-[10px] tracking-wider border-b border-mono-800">
+                                    <tr>
+                                        <th class="p-3">Banner</th>
+                                        <th class="p-3">Judul Utama</th>
+                                        <th class="p-3">Sub Judul</th>
+                                        <th class="p-3 text-right">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminSlidesTable" class="divide-y divide-mono-800 bg-mono-900">
+                                    <!-- Dynamic Rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: PENGATURAN WHATSAPP -->
+                <div id="tabSettingsContent" class="space-y-6 hidden">
+                    <div class="bg-mono-950 border border-mono-800 p-6 rounded-xl max-w-xl">
+                        <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-2">Pengaturan Nomor WhatsApp Penjual</h4>
+                        <p class="text-xs text-mono-400 mb-6">Masukkan nomor WhatsApp yang akan menerima pesanan dari pelanggan (format internasional tanpa +, contoh: 6281234567890).</p>
+                        
+                        <form onsubmit="saveSellerPhone(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-[11px] uppercase tracking-wider text-mono-400 mb-1">Nomor WhatsApp Toko *</label>
+                                <input type="text" id="sellerPhoneInput" required placeholder="6281234567890" class="w-full bg-mono-900 border border-mono-700 text-white text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-white">
+                            </div>
+                            <button type="submit" class="bg-white text-black font-bold px-6 py-2.5 text-xs rounded-lg hover:bg-mono-200 transition">Simpan Nomor WhatsApp</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const DEFAULT_PASS = 'admin';
+        const DEFAULT_SELLER_PHONE = '6281234567890';
+        const DEFAULT_PRODUCTS = [
+            { id: 'p1', title: 'Jam Tangan Monochrome Elite', price: 2450000, category: 'Aksesoris', desc: 'Jam tangan mewah seri terbatas dengan dial hitam pekat dan gelang stainless steel monokrom.', img: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=80' },
+            { id: 'p2', title: 'Kacamata Hitam Luxury Velvet', price: 1150000, category: 'Aksesoris', desc: 'Kacamata berlapis polarized kualitas tinggi dengan frame hitam matte elegan.', img: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=800&q=80' },
+            { id: 'p3', title: 'Tas Kulit High-End Noir', price: 3850000, category: 'Fashion', desc: 'Tas tangan berbahan kulit asli premium dengan potongan tegas dan desain minimalis.', img: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80' },
+            { id: 'p4', title: 'Headphone Studio Wireless B&W', price: 2900000, category: 'Elektronik', desc: 'Sistem audio akustik studio presisi tinggi dengan kedap suara aktif.', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80' },
+            { id: 'p5', title: 'Sepatu Sneaker Streetwear Minimalis', price: 1850000, category: 'Fashion', desc: 'Sneaker desain monokrom edisi khusus berbahan kulit sintetis premium tahan lama.', img: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80' },
+            { id: 'p6', title: 'Kamera Mirrorless Black Edition', price: 12500000, category: 'Elektronik', desc: 'Kamera fotografi profesional dengan sensor full-frame & bodi paduan magnesium hitam pekat.', img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80' },
+            { id: 'p7', title: 'Lampu Meja Arsitek Monokrom', price: 850000, category: 'Rumah', desc: 'Lampu belajar minimalis dengan pencahayaan LED adjustable dan fleksibilitas 360 derajat.', img: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&q=80' },
+            { id: 'p8', title: 'Dompet Kulit Pria Noir Edition', price: 650000, category: 'Aksesoris', desc: 'Dompet lipat dua berbahan kulit asli dengan perlindungan RFID blocking.', img: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=800&q=80' }
+        ];
+
+        const DEFAULT_SLIDES = [
+            { id: 's1', title: 'Jam Tangan Monochrome Elite', subtitle: 'Aksesoris Eksklusif • Rp 2.450.000', img: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1600&q=80', prodId: 'p1' },
+            { id: 's2', title: 'Tas Kulit High-End Noir', subtitle: 'Fashion Premium • Rp 3.850.000', img: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=1600&q=80', prodId: 'p3' },
+            { id: 's3', title: 'Headphone Studio Wireless B&W', subtitle: 'Elektronik Modern • Rp 2.900.000', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1600&q=80', prodId: 'p4' }
+        ];
+
+        let products = JSON.parse(localStorage.getItem('bintanglily_mono_products')) || DEFAULT_PRODUCTS;
+        let slides = JSON.parse(localStorage.getItem('bintanglily_mono_slides')) || DEFAULT_SLIDES;
+        let cart = JSON.parse(localStorage.getItem('bintanglily_mono_cart')) || [];
+        let adminPass = localStorage.getItem('bintanglily_mono_pass') || DEFAULT_PASS;
+        let sellerPhone = localStorage.getItem('bintanglily_mono_seller_phone') || DEFAULT_SELLER_PHONE;
+        
+        let currentSlideIndex = 0;
+        let slideTimer = null;
+        let activeProductForOrder = null;
+
+        // PAGINATION STATE
+        let currentPage = 1;
+        const itemsPerPage = 8;
+
+        let zoomScale = 1;
+        let isDragging = false;
+        let startX, startY, translateX = 0, translateY = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSlides();
+            renderProducts();
+            renderCart();
+            initZoomControls();
+            startSlideShow();
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // SLIDESHOW LOGIC
+        function renderSlides() {
+            const container = document.getElementById('slides-container');
+            const indicators = document.getElementById('slide-indicators');
+            if (!container || !indicators) return;
+
+            if (slides.length === 0) {
+                container.innerHTML = `<div class="w-full h-full flex items-center justify-center text-mono-500">Belum ada slide banner</div>`;
+                indicators.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = slides.map((slide, index) => `
+                <div class="absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentSlideIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}">
+                    <img src="${slide.img}" alt="${slide.title}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-mono-950 via-mono-950/40 to-transparent flex items-center justify-center text-center p-6">
+                        <div class="max-w-3xl">
+                            <span class="bg-white/10 text-white border border-white/20 text-[10px] uppercase font-bold px-3 py-1 rounded-full tracking-widest mb-3 inline-block backdrop-blur-md">PRODUK UNGGULAN</span>
+                            <h1 class="text-3xl sm:text-5xl font-serif-title font-bold text-white tracking-widest uppercase mb-3">${slide.title}</h1>
+                            <p class="text-mono-300 text-xs sm:text-sm tracking-wider uppercase mb-6">${slide.subtitle}</p>
+                            ${slide.prodId ? `<button onclick="openOrderModal('${slide.prodId}')" class="bg-white text-black text-xs font-bold px-6 py-3 rounded-full hover:bg-mono-200 transition uppercase tracking-wider shadow-lg">PESAN PRODUK INI</button>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            indicators.innerHTML = slides.map((_, index) => `
+                <button onclick="goToSlide(${index})" class="w-3 h-3 rounded-full transition-all ${index === currentSlideIndex ? 'bg-white w-8' : 'bg-mono-600 hover:bg-mono-400'}"></button>
+            `).join('');
+        }
+
+        function startSlideShow() {
+            if (slideTimer) clearInterval(slideTimer);
+            slideTimer = setInterval(() => { nextSlide(); }, 5000);
+        }
+
+        function nextSlide() {
+            if (slides.length <= 1) return;
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            renderSlides();
+        }
+
+        function prevSlide() {
+            if (slides.length <= 1) return;
+            currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+            renderSlides();
+        }
+
+        function goToSlide(index) {
+            currentSlideIndex = index;
+            renderSlides();
+        }
+
+        // CATALOG, FILTER & PAGINATION LOGIC
+        function handleFilterChange() {
+            currentPage = 1;
+            renderProducts();
+        }
+
+        function getFilteredProducts() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const sort = document.getElementById('sortFilter').value;
+
+            let filtered = products.filter(p => {
+                const matchSearch = p.title.toLowerCase().includes(search) || p.desc.toLowerCase().includes(search);
+                const matchCategory = category === 'ALL' || p.category === category;
+                return matchSearch && matchCategory;
+            });
+
+            if (sort === 'price-low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sort === 'price-high') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sort === 'name-asc') {
+                filtered.sort((a, b) => a.title.localeCompare(b.title));
+            }
+
+            return filtered;
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const filtered = getFilteredProducts();
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-16 text-center text-mono-400">Tidak ada produk yang ditemukan.</div>`;
+                renderPagination(0);
+                return;
+            }
+
+            // Pagination calculation
+            const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const paginatedProducts = filtered.slice(startIndex, startIndex + itemsPerPage);
+
+            grid.innerHTML = paginatedProducts.map(p => `
+                <div class="group bg-mono-900 border border-mono-800 rounded-xl overflow-hidden hover:border-mono-500 transition flex flex-col justify-between">
+                    <div onclick="openOrderModal('${p.id}')" class="cursor-pointer">
+                        <div class="w-full h-64 bg-mono-950 overflow-hidden relative">
+                            <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 left-3 bg-black/80 text-white text-[9px] font-bold px-2 py-1 uppercase rounded tracking-wider border border-white/20">${p.category}</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-serif-title text-lg font-bold text-white group-hover:text-mono-200 transition line-clamp-1">${p.title}</h3>
+                            <p class="text-mono-400 text-xs mt-1 line-clamp-2">${p.desc}</p>
+                        </div>
+                    </div>
+                    <div class="px-5 pb-5 pt-0 flex justify-between items-center border-t border-mono-800/50 mt-2">
+                        <span class="text-white font-bold text-sm">Rp ${Number(p.price).toLocaleString('id-ID')}</span>
+                        <div class="flex space-x-2">
+                            <button onclick="addToCart('${p.id}', 'Standard', 1)" class="text-xs bg-mono-800 hover:bg-mono-700 border border-mono-600 text-white p-2 rounded-lg transition" title="Tambah Ke Keranjang"><i class="fa-solid fa-cart-plus"></i></button>
+                            <button onclick="openOrderModal('${p.id}')" class="text-[10px] font-bold uppercase tracking-wider bg-white text-black px-3 py-1.5 rounded-lg group-hover:bg-mono-200 transition">Detail</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            renderPagination(filtered.length);
+        }
+
+        function renderPagination(totalItems) {
+            const info = document.getElementById('paginationInfo');
+            const buttons = document.getElementById('paginationButtons');
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+            if (totalItems === 0) {
+                info.innerText = 'Menampilkan 0 dari 0 produk';
+                buttons.innerHTML = '';
+                return;
+            }
+
+            const startItem = (currentPage - 1) * itemsPerPage + 1;
+            const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+            info.innerText = `Menampilkan ${startItem}-${endItem} dari ${totalItems} produk`;
+
+            if (totalPages <= 1) {
+                buttons.innerHTML = '';
+                return;
+            }
+
+            let btnHtml = '';
+            
+            // Prev Button
+            btnHtml += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled class="px-3 py-1.5 rounded-lg text-xs bg-mono-900 border border-mono-800 text-mono-600 cursor-not-allowed"' : 'class="px-3 py-1.5 rounded-lg text-xs bg-mono-800 border border-mono-700 text-mono-300 hover:text-white hover:border-white transition"'}>Prev</button>`;
+
+            // Numeric Page Buttons
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    btnHtml += `<button class="w-8 h-8 rounded-lg text-xs font-bold bg-white text-black">${i}</button>`;
+                } else {
+                    btnHtml += `<button onclick="changePage(${i})" class="w-8 h-8 rounded-lg text-xs font-semibold bg-mono-900 border border-mono-700 text-mono-300 hover:text-white hover:border-white transition">${i}</button>`;
+                }
+            }
+
+            // Next Button
+            btnHtml += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled class="px-3 py-1.5 rounded-lg text-xs bg-mono-900 border border-mono-800 text-mono-600 cursor-not-allowed"' : 'class="px-3 py-1.5 rounded-lg text-xs bg-mono-800 border border-mono-700 text-mono-300 hover:text-white hover:border-white transition"'}>Next</button>`;
+
+            buttons.innerHTML = btnHtml;
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            renderProducts();
+            document.getElementById('catalogSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // CART MANAGEMENT LOGIC
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cartDrawer');
+            const overlay = document.getElementById('cartDrawerOverlay');
+            if (drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function addToCart(productId, variant = 'Standard', qty = 1) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingIndex = cart.findIndex(item => item.id === productId && item.variant === variant);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += Number(qty);
+            } else {
+                cart.push({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    img: product.img,
+                    variant: variant,
+                    qty: Number(qty)
+                });
+            }
+
+            saveAndRenderCart();
+            toggleCartDrawer();
+        }
+
+        function addActiveProductToCart() {
+            if (!activeProductForOrder) return;
+            const variant = document.getElementById('custVariant').value;
+            const qty = Number(document.getElementById('custQty').value);
+            addToCart(activeProductForOrder.id, variant, qty);
+            closeOrderModal();
+        }
+
+        function updateCartQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            saveAndRenderCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            saveAndRenderCart();
+        }
+
+        function clearCart() {
+            if (confirm('Kosongkan semua barang di keranjang?')) {
+                cart = [];
+                saveAndRenderCart();
+            }
+        }
+
+        function saveAndRenderCart() {
+            localStorage.setItem('bintanglily_mono_cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function renderCart() {
+            const list = document.getElementById('cartItemsList');
+            const badge = document.getElementById('cartBadgeCount');
+            const totalElement = document.getElementById('cartTotalPrice');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            badge.innerText = totalItems;
+            totalElement.innerText = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+
+            if (cart.length === 0) {
+                list.innerHTML = `<div class="text-center py-16 text-mono-400 text-xs">Keranjang Anda masih kosong.</div>`;
+                return;
+            }
+
+            list.innerHTML = cart.map((item, index) => `
+                <div class="flex items-center justify-between bg-mono-950 p-3 rounded-xl border border-mono-800">
+                    <img src="${item.img}" alt="${item.title}" class="w-12 h-12 object-cover rounded border border-mono-800">
+                    <div class="flex-grow px-3">
+                        <h4 class="text-xs font-bold text-white line-clamp-1">${item.title}</h4>
+                        <p class="text-[10px] text-mono-400">Varian: ${item.variant}</p>
+                        <p class="text-xs font-semibold text-mono-200 mt-0.5">Rp ${(item.price * item.qty).toLocaleString('id-ID')}</p>
+                    </div>
+                    <div class="flex flex-col items-end space-y-2">
+                        <button onclick="removeFromCart(${index})" class="text-mono-500 hover:text-red-400 text-xs"><i class="fa-solid fa-trash"></i></button>
+                        <div class="flex items-center space-x-1 border border-mono-700 rounded-md bg-mono-900 px-1 py-0.5">
+                            <button onclick="updateCartQty(${index}, -1)" class="w-4 h-4 text-xs font-bold text-mono-300 hover:text-white flex items-center justify-center">-</button>
+                            <span class="text-xs font-semibold text-white px-1.5">${item.qty}</span>
+                            <button onclick="updateCartQty(${index}, 1)" class="w-4 h-4 text-xs font-bold text-mono-300 hover:text-white flex items-center justify-center">+</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function submitCartCheckout(e) {
+            e.preventDefault();
+            if (cart.length === 0) {
+                alert('Keranjang belanja Anda masih kosong!');
+                return;
+            }
+
+            const name = document.getElementById('cartCustName').value;
+            const phone = document.getElementById('cartCustPhone').value;
+            const address = document.getElementById('cartCustAddress').value;
+
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            
+            let itemDetails = cart.map((item, idx) => `${idx + 1}. ${item.title} (${item.variant}) - ${item.qty}x @ Rp ${item.price.toLocaleString('id-ID')}`).join('\n');
+
+            const text = `Halo *BintangLilyShop*, saya ingin memesan keranjang belanja berikut:\n\n` +
+                `*Rincian Pesanan:*\n${itemDetails}\n\n` +
+                `*Total Harga:* Rp ${totalPrice.toLocaleString('id-ID')}\n\n` +
+                `*Data Pemesan:*\n` +
+                `- Nama: ${name}\n` +
+                `- No WA: ${phone}\n` +
+                `- Alamat Lengkap: ${address}\n\n` +
+                `Mohon konfirmasi dan proses pesanan saya. Terima kasih!`;
+
+            const currentPhone = localStorage.getItem('bintanglily_mono_seller_phone') || DEFAULT_SELLER_PHONE;
+            const encoded = encodeURIComponent(text);
+            window.open(`https://wa.me/${currentPhone}?text=${encoded}`, '_blank');
+        }
+
+        // UNIFIED DETAIL & ZOOM MODAL
+        function openOrderModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            activeProductForOrder = product;
+
+            document.getElementById('modalTitle').innerText = product.title;
+            document.getElementById('modalPrice').innerText = `Rp ${Number(product.price).toLocaleString('id-ID')}`;
+            document.getElementById('modalDesc').innerText = product.desc;
+            document.getElementById('modalCategory').innerText = product.category;
+            document.getElementById('modalProductImg').src = product.img;
+
+            resetZoom();
+            document.getElementById('productOrderModal').classList.remove('hidden');
+        }
+
+        function closeOrderModal() {
+            document.getElementById('productOrderModal').classList.add('hidden');
+            activeProductForOrder = null;
+        }
+
+        // INTERACTIVE ZOOM CONTROLLER
+        function initZoomControls() {
+            const container = document.getElementById('zoomContainer');
+
+            container.addEventListener('mousedown', (e) => {
+                if (zoomScale <= 1) return;
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                applyZoomTransform();
+            });
+
+            window.addEventListener('mouseup', () => { isDragging = false; });
+        }
+
+        function adjustZoom(delta) {
+            setZoom(zoomScale + delta);
+        }
+
+        function setZoom(val) {
+            zoomScale = Math.max(1, Math.min(4, parseFloat(val)));
+            document.getElementById('zoomRange').value = zoomScale;
+            if (zoomScale === 1) { translateX = 0; translateY = 0; }
+            applyZoomTransform();
+        }
+
+        function resetZoom() {
+            zoomScale = 1;
+            translateX = 0;
+            translateY = 0;
+            document.getElementById('zoomRange').value = 1;
+            applyZoomTransform();
+        }
+
+        function applyZoomTransform() {
+            const img = document.getElementById('modalProductImg');
+            img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${zoomScale})`;
+        }
+
+        // FILE BROWSE PREVIEW
+        function previewFile(inputId, imgId, hiddenInputId) {
+            const file = document.getElementById(inputId).files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const res = e.target.result;
+                    document.getElementById(imgId).src = res;
+                    document.getElementById(imgId).classList.remove('hidden');
+                    document.getElementById(hiddenInputId).value = res;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // ADMIN LOGIN & DASHBOARD
+        function openAdminModal() {
+            if (sessionStorage.getItem('bintanglily_admin_logged') === 'true') {
+                openAdminDashboard();
+            } else {
+                document.getElementById('adminLoginModal').classList.remove('hidden');
+            }
+        }
+
+        function closeAdminLoginModal() {
+            document.getElementById('adminLoginModal').classList.add('hidden');
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const pass = document.getElementById('adminPassword').value.trim();
+            const currentSavedPass = localStorage.getItem('bintanglily_mono_pass') || DEFAULT_PASS;
+
+            if (pass === currentSavedPass.trim()) {
+                sessionStorage.setItem('bintanglily_admin_logged', 'true');
+                closeAdminLoginModal();
+                openAdminDashboard();
+                document.getElementById('adminPassword').value = '';
+            } else {
+                alert('Password Admin Salah!');
+            }
+        }
+
+        function openAdminDashboard() {
+            renderAdminProductsTable();
+            renderAdminSlidesTable();
+            document.getElementById('sellerPhoneInput').value = localStorage.getItem('bintanglily_mono_seller_phone') || DEFAULT_SELLER_PHONE;
+            document.getElementById('adminDashboardModal').classList.remove('hidden');
+        }
+
+        function closeAdminDashboard() {
+            document.getElementById('adminDashboardModal').classList.add('hidden');
+        }
+
+        function logoutAdmin() {
+            sessionStorage.removeItem('bintanglily_admin_logged');
+            closeAdminDashboard();
+        }
+
+        function openChangePassModal() {
+            document.getElementById('oldPassInput').value = '';
+            document.getElementById('newPassInput').value = '';
+            document.getElementById('confirmPassInput').value = '';
+            document.getElementById('changePassModal').classList.remove('hidden');
+        }
+
+        function closeChangePassModal() {
+            document.getElementById('changePassModal').classList.add('hidden');
+        }
+
+        function handleChangePassSubmit(e) {
+            e.preventDefault();
+            const oldPass = document.getElementById('oldPassInput').value.trim();
+            const newPass = document.getElementById('newPassInput').value.trim();
+            const confirmPass = document.getElementById('confirmPassInput').value.trim();
+            const currentSavedPass = localStorage.getItem('bintanglily_mono_pass') || DEFAULT_PASS;
+
+            if (oldPass !== currentSavedPass.trim()) {
+                alert('Password lama Anda tidak cocok!');
+                return;
+            }
+
+            if (newPass.length < 4) {
+                alert('Password baru minimal 4 karakter!');
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                alert('Konfirmasi password baru tidak cocok!');
+                return;
+            }
+
+            localStorage.setItem('bintanglily_mono_pass', newPass);
+            adminPass = newPass;
+            alert('Password Admin berhasil diubah!');
+            closeChangePassModal();
+        }
+
+        function saveSellerPhone(e) {
+            e.preventDefault();
+            const phone = document.getElementById('sellerPhoneInput').value.trim();
+            localStorage.setItem('bintanglily_mono_seller_phone', phone);
+            sellerPhone = phone;
+            alert('Nomor WhatsApp Penjual berhasil disimpan!');
+        }
+
+        function switchAdminTab(tab) {
+            const pBtn = document.getElementById('tabProductsBtn');
+            const hBtn = document.getElementById('tabHeaderBtn');
+            const sBtn = document.getElementById('tabSettingsBtn');
+            
+            const pContent = document.getElementById('tabProductsContent');
+            const hContent = document.getElementById('tabHeaderContent');
+            const sContent = document.getElementById('tabSettingsContent');
+
+            pBtn.className = "py-3 px-5 text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-mono-400 hover:text-white whitespace-nowrap";
+            hBtn.className = "py-3 px-5 text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-mono-400 hover:text-white whitespace-nowrap";
+            sBtn.className = "py-3 px-5 text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-mono-400 hover:text-white whitespace-nowrap";
+            
+            pContent.classList.add('hidden');
+            hContent.classList.add('hidden');
+            sContent.classList.add('hidden');
+
+            if (tab === 'products') {
+                pBtn.className = "py-3 px-5 text-xs font-bold uppercase tracking-wider border-b-2 border-white text-white whitespace-nowrap";
+                pContent.classList.remove('hidden');
+            } else if (tab === 'header') {
+                hBtn.className = "py-3 px-5 text-xs font-bold uppercase tracking-wider border-b-2 border-white text-white whitespace-nowrap";
+                hContent.classList.remove('hidden');
+            } else if (tab === 'settings') {
+                sBtn.className = "py-3 px-5 text-xs font-bold uppercase tracking-wider border-b-2 border-white text-white whitespace-nowrap";
+                sContent.classList.remove('hidden');
+            }
+        }
+
+        function saveProduct(e) {
+            e.preventDefault();
+            const id = document.getElementById('prodId').value;
+            const title = document.getElementById('prodTitle').value;
+            const price = Number(document.getElementById('prodPrice').value);
+            const category = document.getElementById('prodCategory').value;
+            const desc = document.getElementById('prodDesc').value;
+            const img = document.getElementById('prodImgUrl').value || 'https://via.placeholder.com/600';
+
+            if (id) {
+                const idx = products.findIndex(p => p.id === id);
+                if (idx !== -1) products[idx] = { id, title, price, category, desc, img };
+            } else {
+                products.push({ id: 'p_' + Date.now(), title, price, category, desc, img });
+            }
+
+            localStorage.setItem('bintanglily_mono_products', JSON.stringify(products));
+            resetProdForm();
+            renderAdminProductsTable();
+            renderProducts();
+        }
+
+        function editProduct(id) {
+            const p = products.find(prod => prod.id === id);
+            if (!p) return;
+            document.getElementById('prodId').value = p.id;
+            document.getElementById('prodTitle').value = p.title;
+            document.getElementById('prodPrice').value = p.price;
+            document.getElementById('prodCategory').value = p.category;
+            document.getElementById('prodDesc').value = p.desc;
+            document.getElementById('prodImgUrl').value = p.img;
+            document.getElementById('prodImgPreview').src = p.img;
+            document.getElementById('prodImgPreview').classList.remove('hidden');
+            document.getElementById('formProductTitle').innerText = 'Edit Produk';
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Yakin ingin menghapus produk ini?')) {
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('bintanglily_mono_products', JSON.stringify(products));
+                renderAdminProductsTable();
+                renderProducts();
+            }
+        }
+
+        function resetProdForm() {
+            document.getElementById('productCrudForm').reset();
+            document.getElementById('prodId').value = '';
+            document.getElementById('prodImgUrl').value = '';
+            document.getElementById('prodImgPreview').classList.add('hidden');
+            document.getElementById('formProductTitle').innerText = 'Tambah Produk Baru';
+        }
+
+        function renderAdminProductsTable() {
+            const table = document.getElementById('adminProductsTable');
+            table.innerHTML = products.map(p => `
+                <tr>
+                    <td class="p-3"><img src="${p.img}" class="w-10 h-10 object-cover rounded border border-mono-700"></td>
+                    <td class="p-3 font-semibold text-white">${p.title}</td>
+                    <td class="p-3">${p.category}</td>
+                    <td class="p-3">Rp ${Number(p.price).toLocaleString('id-ID')}</td>
+                    <td class="p-3 text-right space-x-2">
+                        <button onclick="editProduct('${p.id}')" class="text-xs text-mono-300 hover:text-white border border-mono-700 px-2.5 py-1 rounded">Edit</button>
+                        <button onclick="deleteProduct('${p.id}')" class="text-xs text-red-400 hover:text-red-200 border border-red-900 px-2.5 py-1 rounded">Hapus</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function saveSlide(e) {
+            e.preventDefault();
+            const id = document.getElementById('slideId').value;
+            const title = document.getElementById('slideTitle').value;
+            const subtitle = document.getElementById('slideSubtitle').value;
+            const img = document.getElementById('slideImgUrl').value || 'https://via.placeholder.com/1600x600';
+
+            if (id) {
+                const idx = slides.findIndex(s => s.id === id);
+                if (idx !== -1) slides[idx] = { id, title, subtitle, img };
+            } else {
+                slides.push({ id: 's_' + Date.now(), title, subtitle, img });
+            }
+
+            localStorage.setItem('bintanglily_mono_slides', JSON.stringify(slides));
+            resetSlideForm();
+            renderAdminSlidesTable();
+            renderSlides();
+        }
+
+        function editSlide(id) {
+            const s = slides.find(slide => slide.id === id);
+            if (!s) return;
+            document.getElementById('slideId').value = s.id;
+            document.getElementById('slideTitle').value = s.title;
+            document.getElementById('slideSubtitle').value = s.subtitle;
+            document.getElementById('slideImgUrl').value = s.img;
+            document.getElementById('slideImgPreview').src = s.img;
+            document.getElementById('slideImgPreview').classList.remove('hidden');
+            document.getElementById('formSlideTitle').innerText = 'Edit Banner Slideshow';
+        }
+
+        function deleteSlide(id) {
+            if (confirm('Yakin ingin menghapus banner slide ini?')) {
+                slides = slides.filter(s => s.id !== id);
+                localStorage.setItem('bintanglily_mono_slides', JSON.stringify(slides));
+                renderAdminSlidesTable();
+                renderSlides();
+            }
+        }
+
+        function resetSlideForm() {
+            document.getElementById('slideCrudForm').reset();
+            document.getElementById('slideId').value = '';
+            document.getElementById('slideImgUrl').value = '';
+            document.getElementById('slideImgPreview').classList.add('hidden');
+            document.getElementById('formSlideTitle').innerText = 'Tambah Banner Header';
+        }
+
+        function renderAdminSlidesTable() {
+            const table = document.getElementById('adminSlidesTable');
+            table.innerHTML = slides.map(s => `
+                <tr>
+                    <td class="p-3"><img src="${s.img}" class="w-16 h-8 object-cover rounded border border-mono-700"></td>
+                    <td class="p-3 font-semibold text-white">${s.title}</td>
+                    <td class="p-3">${s.subtitle}</td>
+                    <td class="p-3 text-right space-x-2">
+                        <button onclick="editSlide('${s.id}')" class="text-xs text-mono-300 hover:text-white border border-mono-700 px-2.5 py-1 rounded">Edit</button>
+                        <button onclick="deleteSlide('${s.id}')" class="text-xs text-red-400 hover:text-red-200 border border-red-900 px-2.5 py-1 rounded">Hapus</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
