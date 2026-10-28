@@ -603,22 +603,22 @@ Nomor WhatsApp</button> </form>
 </div>
 <!-- JAVASCRIPT LOGIC -->
 <script>
-const DEFAULT_PASS = 'admin';
+const DEFAULT_PASS = 'binly';
 const DEFAULT_SELLER_PHONE = '6281234567890';
 const DEFAULT_PRODUCTS = [
-{ id: 'p1', title: 'Jam Tangan Monochrome Elite', price: 2450000, category: 'Aksesoris', desc: 'Jam tangan mewah seri terbatas dengan dial hitam pekat dan gelang stainless steel monokrom.', img: 'https://raw.githubusercontent.com/bintanglilyshopcom/onlineshop/main/p1.jpg' },
-{ id: 'p2', title: 'Kacamata Hitam Luxury Velvet', price: 1150000, category: 'Aksesoris', desc: 'Kacamata berlapis polarized kualitas tinggi dengan frame hitam matte elegan.', img: 'https://raw.githubusercontent.com/bintanglilyshopcom/onlineshop/main/p2.jpg' },
-{ id: 'p3', title: 'Tas Kulit High-End Noir', price: 3850000, category: 'Fashion', desc: 'Tas tangan berbahan kulit asli premium dengan potongan tegas dan desain minimalis.', img: 'https://raw.githubusercontent.com/bintanglilyshopcom/onlineshop/main/p3.jpg' },
-{ id: 'p4', title: 'Headphone Studio Wireless B&W', price: 2900000, category: 'Elektronik', desc: 'Sistem audio akustik studio presisi tinggi dengan kedap suara aktif.', img: ''https://raw.githubusercontent.com/bintanglilyshopcom/onlineshop/main/p4.jpg' },
+{ id: 'p1', title: 'Jam Tangan Monochrome Elite', price: 2450000, category: 'Aksesoris', desc: 'Jam tangan mewah seri terbatas dengan dial hitam pekat dan gelang stainless steel monokrom.', img: 'p1.jpg' },
+{ id: 'p2', title: 'Kacamata Hitam Luxury Velvet', price: 1150000, category: 'Aksesoris', desc: 'Kacamata berlapis polarized kualitas tinggi dengan frame hitam matte elegan.', img: 'p2.jpg' },
+{ id: 'p3', title: 'Tas Kulit High-End Noir', price: 3850000, category: 'Fashion', desc: 'Tas tangan berbahan kulit asli premium dengan potongan tegas dan desain minimalis.', img: 'p3.jpg' },
+{ id: 'p4', title: 'Headphone Studio Wireless B&W', price: 2900000, category: 'Elektronik', desc: 'Sistem audio akustik studio presisi tinggi dengan kedap suara aktif.', img: 'p4.jpg' },
 { id: 'p5', title: 'Sepatu Sneaker Streetwear Minimalis', price: 1850000, category: 'Fashion', desc: 'Sneaker desain monokrom edisi khusus berbahan kulit sintetis premium tahan lama.', img: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80' },
 { id: 'p6', title: 'Kamera Mirrorless Black Edition', price: 12500000, category: 'Elektronik', desc: 'Kamera fotografi profesional dengan sensor full-frame & bodi paduan magnesium hitam pekat.', img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80' },
 { id: 'p7', title: 'Lampu Meja Arsitek Monokrom', price: 850000, category: 'Rumah', desc: 'Lampu belajar minimalis dengan pencahayaan LED adjustable dan fleksibilitas 360 derajat.', img: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&q=80' },
 { id: 'p8', title: 'Dompet Kulit Pria Noir Edition', price: 650000, category: 'Aksesoris', desc: 'Dompet lipat dua berbahan kulit asli dengan perlindungan RFID blocking.', img: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=800&q=80' }
 ];
 const DEFAULT_SLIDES = [
-{ id: 's1', title: 'Jam Tangan Monochrome Elite', subtitle: 'Aksesoris Eksklusif • Rp 2.450.000', img: 'https://raw.githubusercontent.com/bintanglilyshopcom/onlineshop/main/p1.jpg', prodId: 'p1' },
-{ id: 's2', title: 'Tas Kulit High-End Noir', subtitle: 'Fashion Premium • Rp 3.850.000', img: 'https://raw.githubusercontent.com/bintanglilyshopcom/onlineshop/main/p2.jpg', prodId: 'p3' },
-{ id: 's3', title: 'Headphone Studio Wireless B&W', subtitle: 'Elektronik Modern • Rp 2.900.000', img: 'https://raw.githubusercontent.com/bintanglilyshopcom/onlineshop/main/p3.jpg', prodId: 'p4' }
+{ id: 's1', title: 'Jam Tangan Monochrome Elite', subtitle: 'Aksesoris Eksklusif • Rp 2.450.000', img: 'p1.jpg', prodId: 'p1' },
+{ id: 's2', title: 'Tas Kulit High-End Noir', subtitle: 'Fashion Premium • Rp 3.850.000', img: 'p2.jpg', prodId: 'p3' },
+{ id: 's3', title: 'Headphone Studio Wireless B&W', subtitle: 'Elektronik Modern • Rp 2.900.000', img: 'p3.jpg', prodId: 'p3' }
 ];
 localStorage.removeItem('bintanglily_mono_products');
 localStorage.removeItem('bintanglily_mono_slides');
